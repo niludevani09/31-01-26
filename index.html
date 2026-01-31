@@ -1,0 +1,1444 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Nilu's World - Unlock Your Trading Potential</title>
+   
+    <!-- particles.js library for Arbitrage effect -->
+    <script src="https://cdn.jsdelivr.net/npm/particles.js@2.0.0/particles.min.js"></script>
+    <style>
+        /* ────────────────────────────────────────────── */
+        /* ALL CSS COMBINED */
+        /* ────────────────────────────────────────────── */
+        * { box-sizing: border-box; }
+        body {
+            margin: 0;
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            background-color: #ffffff;
+            color: #000000;
+            overflow-x: hidden;
+            user-select: none;
+        }
+        @media (min-width: 769px) {
+            body, button, .step-in, .tab-btn {
+                cursor: none !important;
+            }
+        }
+        #cursor {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 32px;
+            height: 32px;
+            border: 2px solid #000000;
+            border-radius: 50%;
+            pointer-events: none;
+            z-index: 99999;
+            background: transparent;
+            transform: translate(-50%, -50%) scale(1);
+            transition: transform 0.6s cubic-bezier(0.25, 0.46, 0.45, 0.94),
+                        border-color 0.4s ease,
+                        border-width 0.4s ease;
+            opacity: 0;
+        }
+        #cursor.hover {
+            transform: translate(-50%, -50%) scale(1.8);
+            border-width: 2.5px;
+        }
+        header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 20px 50px;
+            background-color: #ffffff;
+            position: sticky;
+            top: 0;
+            z-index: 1000;
+            box-shadow: 0 2px 10px rgba(0,0,0,0.05);
+        }
+        .logo {
+            font-size: 28px;
+            font-weight: 800;
+            color: #000000;
+            letter-spacing: -0.5px;
+        }
+        .private-btn {
+            background-color: #000000;
+            color: #ffffff;
+            border: none;
+            padding: 12px 32px;
+            font-size: 16px;
+            font-weight: 600;
+            border-radius: 50px;
+            transition: all 0.5s cubic-bezier(0.25, 0.46, 0.45, 0.94);
+            position: relative;
+            overflow: hidden;
+        }
+        .private-btn::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: -100%;
+            width: 100%;
+            height: 100%;
+            background: linear-gradient(90deg, transparent, rgba(255,255,255,0.3), transparent);
+            transition: left 0.7s ease;
+        }
+        .private-btn:hover {
+            transform: translateY(-3px);
+            box-shadow: 0 8px 25px rgba(0,0,0,0.2);
+            background: linear-gradient(45deg, #000000, #111111);
+        }
+        .private-btn:hover::before { left: 100%; }
+        .hero {
+            text-align: center;
+            padding: 100px 20px 180px;
+            max-width: 1400px;
+            margin: 0 auto;
+            background-color: #ffffff;
+            position: relative;
+        }
+        .hero-content { max-width: 900px; margin: 0 auto 80px; }
+        .step-in {
+            position: relative;
+            width: 140px;
+            height: 70px;
+            background: linear-gradient(to bottom, rgba(255,255,255,0.6) 0%, rgba(240,240,245,0.2) 50%, transparent 100%);
+            border: 1.5px solid rgba(220, 220, 220, 0.9);
+            border-radius: 40px;
+            display: inline-flex;
+            align-items: center;
+            justify-content: center;
+            margin-bottom: 50px;
+            box-shadow: 0 8px 20px rgba(0, 0, 0, 0.12), inset 0 8px 16px rgba(255, 255, 255, 0.6), inset 0 -8px 16px rgba(200, 200, 200, 0.4), inset 0 0 20px rgba(255, 255, 255, 0.2);
+            backdrop-filter: blur(8px) saturate(120%);
+            font-size: 15px;
+            font-weight: 800;
+            color: #000000;
+            letter-spacing: 0.8px;
+            text-transform: uppercase;
+            overflow: hidden;
+            transition: all 0.5s cubic-bezier(0.25, 0.46, 0.45, 0.94);
+        }
+        .step-in::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            height: 40%;
+            background: linear-gradient(to bottom, rgba(255,255,255,0.8), transparent);
+            border-radius: 20px 20px 0 0;
+        }
+        .step-in::after {
+            content: '';
+            position: absolute;
+            top: -100%;
+            left: -100%;
+            width: 50%;
+            height: 200%;
+            background: linear-gradient(120deg, transparent, rgba(255,255,255,0.5) 50%, transparent);
+            transform: rotate(30deg);
+            animation: glassShine 10s infinite linear;
+        }
+        @keyframes glassShine {
+            0% { transform: translateX(-200%) rotate(30deg); }
+            100% { transform: translateX(200%) rotate(30deg); }
+        }
+        .step-in:hover {
+            transform: translateY(-6px) scale(1.05);
+            box-shadow: 0 15px 30px rgba(0, 0, 0, 0.18), inset 0 10px 20px rgba(255, 255, 255, 0.8), inset 0 -10px 20px rgba(180, 180, 180, 0.5);
+        }
+        .hero h1 {
+            font-size: clamp(42px, 8vw, 64px);
+            margin: 20px 0 30px;
+            font-weight: 900;
+            line-height: 1.1;
+            color: #000000;
+            letter-spacing: -1px;
+        }
+        .hero-desc {
+            font-size: clamp(18px, 3vw, 22px);
+            color: #333333;
+            max-width: 800px;
+            margin: 0 auto;
+            line-height: 1.6;
+        }
+        .macbook-img {
+            width: 100%;
+            max-width: 1200px;
+            height: auto;
+            display: block;
+            margin: 0 auto;
+            border-radius: 20px;
+            object-fit: contain;
+            pointer-events: none;
+        }
+        .black-section {
+            background-color: #000000;
+            color: #ffffff;
+            padding: 80px 20px 140px;
+            text-align: center;
+            position: relative;
+            overflow: hidden;
+        }
+        .black-content {
+            max-width: 1400px;
+            margin: 0 auto;
+        }
+        .black-buttons {
+            display: flex;
+            justify-content: center;
+            gap: 24px;
+            margin-bottom: 60px;
+            flex-wrap: wrap;
+            padding-top: 20px;
+        }
+        .tab-btn {
+            padding: 18px 48px;
+            font-size: 20px;
+            font-weight: 800;
+            background-color: #1a1a1a;
+            color: #888888;
+            border: none !important;
+            border-radius: 16px;
+            transition: all 0.4s cubic-bezier(0.25, 0.46, 0.45, 0.94);
+            min-width: 220px;
+            letter-spacing: 0.5px;
+            position: relative;
+            overflow: hidden;
+        }
+        .tab-btn.active {
+            background-color: #ffffff !important;
+            color: #000000 !important;
+            box-shadow: 0 8px 25px rgba(255,255,255,0.3);
+        }
+        .market-container {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(580px, 1fr));
+            gap: 40px;
+            justify-items: center;
+            max-width: 1400px;
+            margin: 0 auto;
+        }
+        .market-box {
+            background-color: #000000 !important;
+            border: 1px solid #222222;
+            border-radius: 20px;
+            padding: 35px 30px;
+            width: 100%;
+            max-width: 600px;
+            box-shadow: 0 15px 40px rgba(0,0,0,0.6);
+            transition: all 0.4s ease;
+        }
+        .market-box:hover {
+            transform: translateY(-8px);
+            box-shadow: 0 25px 60px rgba(0,0,0,0.6);
+        }
+        .pair-logo {
+            width: 52px;
+            height: 52px;
+            border-radius: 12px;
+            object-fit: cover;
+            border: none !important;
+            box-shadow: 0 4px 15px rgba(0,0,0,0.5);
+        }
+        .pair-name {
+            font-size: 28px;
+            font-weight: 800;
+            color: #ffffff;
+            letter-spacing: -0.5px;
+        }
+        .pair-price {
+            font-size: 34px;
+            font-weight: 900;
+            color: #ffffff;
+            margin-bottom: 4px;
+            letter-spacing: -1px;
+        }
+        .pair-divider {
+            border: none;
+            height: 1px;
+            background: linear-gradient(90deg, transparent 0%, #333333 20%, #333333 80%, transparent 100%);
+            margin: 22px 25px;
+        }
+        .lower-pair {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            padding: 16px 0;
+            gap: 16px;
+            transition: all 0.3s ease;
+        }
+        .lower-pair:hover {
+            background: rgba(255,255,255,0.05);
+            border-radius: 10px;
+            padding-left: 8px;
+            padding-right: 8px;
+        }
+        .lower-left {
+            display: flex;
+            align-items: center;
+            gap: 14px;
+            flex: 1;
+        }
+        .lower-pair .pair-logo {
+            width: 42px;
+            height: 42px;
+            border-radius: 10px;
+        }
+        .lower-pair .pair-name {
+            font-size: 22px;
+            font-weight: 700;
+            color: #ffffff;
+        }
+        .lower-pair .pair-price {
+            font-size: 22px;
+            font-weight: 700;
+            color: #e0e0e0;
+            text-align: right;
+            min-width: 90px;
+        }
+        .crypto-left, .crypto-right { display: none; }
+        .forex-left, .forex-right { display: block; }
+        body.crypto-active .forex-left,
+        body.crypto-active .forex-right { display: none; }
+        body.crypto-active .crypto-left,
+        body.crypto-active .crypto-right { display: block; }
+        .arbitrage-section {
+            background-color: #ffffff;
+            padding: 100px 40px 120px;
+            position: relative;
+            overflow: hidden;
+        }
+        .arbitrage-content {
+            max-width: 1400px;
+            margin: 0 auto;
+            display: flex;
+            flex-wrap: wrap;
+            align-items: center;
+            justify-content: space-between;
+            gap: 60px;
+            position: relative;
+            z-index: 2;
+        }
+        .arbitrage-text {
+            flex: 1 1 500px;
+            min-width: 300px;
+        }
+        .arbitrage-title {
+            font-size: 80px;
+            font-weight: 900;
+            color: #000000;
+            letter-spacing: -2px;
+            margin: 0 0 40px 0;
+            line-height: 1.4;
+        }
+        .arbitrage-subtitle {
+            font-size: 32px;
+            font-weight: 700;
+            color: #000000;
+            margin: 0 0 30px 0;
+            line-height: 1.4;
+            max-width: 700px;
+        }
+        .arbitrage-desc {
+            font-size: 22px;
+            font-weight: 500;
+            color: #333333;
+            margin: 0;
+            line-height: 1.6;
+            max-width: 650px;
+        }
+        .footer-img {
+            width: 100%;
+            max-width: 550px;
+            height: auto;
+            display: block;
+            margin-left: auto;
+            margin-right: 30px;
+            border-radius: 20px;
+            object-fit: contain;
+            box-shadow: none !important;
+        }
+        .particles-container {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            pointer-events: none;
+            z-index: 1;
+            overflow: hidden;
+        }
+        #arbitrage-particles {
+            position: absolute;
+            width: 100%;
+            height: 100%;
+            top: 0;
+            left: 0;
+        }
+        .upcoming-tech-section {
+            background-color: #000000;
+            width: 100%;
+            padding: 100px 40px 100px;
+            text-align: center;
+        }
+        .upcoming-tech-content {
+            max-width: 1400px;
+            margin: 0 auto;
+            display: flex;
+            flex-direction: column;
+            gap: 250px;
+        }
+        .upcoming-tech-title {
+            font-size: 80px;
+            font-weight: 900;
+            letter-spacing: -1px;
+            background: linear-gradient(90deg, #00e5ff, #0099ff, #2979ff, #5e9aff, #b0c4ff, #d8e2ff, #f0f4ff);
+            background-size: 200% 200%;
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+            animation: gradientFlow 8s ease infinite;
+            text-shadow: 0 0 30px rgba(0, 229, 255, 0.6),
+                         0 0 60px rgba(41, 121, 255, 0.5),
+                         0 0 90px rgba(100, 150, 255, 0.3);
+            margin: 0;
+            line-height: 1.2;
+        }
+        @keyframes gradientFlow {
+            0% { background-position: 0% 50%; }
+            50% { background-position: 100% 50%; }
+            100% { background-position: 0% 50%; }
+        }
+        .tech-pair-wrapper {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            gap: 150px;
+            max-width: 1400px;
+            margin: 0 auto;
+            flex-wrap: wrap;
+        }
+        .tech-pair-image {
+            width: 100%;
+            max-width: 300px;
+            height: auto;
+            border-radius: 20px;
+            object-fit: contain;
+            flex-shrink: 0;
+        }
+        .tech-pair-text {
+            flex: 1;
+            text-align: left;
+            min-width: 300px;
+        }
+        .tech-pair-heading {
+            font-size: 60px;
+            font-weight: 900;
+            color: #ffffff;
+            margin: 0 0 30px 0;
+            letter-spacing: -1px;
+        }
+        .tech-pair-desc {
+            font-size: 22px;
+            font-weight: 500;
+            color: #cccccc;
+            line-height: 1.2;
+            margin: 0;
+        }
+        @media (max-width: 1024px) {
+            .tech-pair-wrapper {
+                flex-direction: column;
+                text-align: center;
+                gap: 60px;
+            }
+            .tech-pair-text { text-align: center; }
+            .tech-pair-heading { font-size: 48px; }
+            .tech-pair-desc { font-size: 20px; }
+            .tech-pair-image { max-width: 80%; margin: 0 auto; }
+        }
+        @media (max-width: 768px) {
+            .upcoming-tech-section { padding: 140px 20px 180px; }
+            .upcoming-tech-title { font-size: 56px; }
+            .tech-pair-heading { font-size: 42px; }
+            .tech-pair-desc { font-size: 18px; }
+        }
+        .about-black-expanded {
+            width: 100%;
+            padding: 180px 40px 400px;
+            text-align: center;
+            background-color: #000000;
+        }
+        .about-big-text {
+            font-size: 120px;
+            font-weight: 900;
+            letter-spacing: -3px;
+            line-height: 1.1;
+            margin: 0;
+            background: linear-gradient(to bottom,
+                #dddddd 0%, #cccccc 10%, #bbbbbb 20%, #aaaaaa 30%,
+                #999999 40%, #888888 50%, #666666 60%, #444444 70%,
+                #222222 80%, #111111 90%, #000000 95%, #000000 100%
+            );
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+            pointer-events: none;
+        }
+        @media (max-width: 1024px) {
+            .about-black-expanded { padding: 140px 30px 350px; }
+            .about-big-text { font-size: 100px; }
+        }
+        @media (max-width: 768px) {
+            .about-black-expanded { padding: 120px 20px 300px; }
+            .about-big-text { font-size: 80px; }
+        }
+        @media (max-width: 480px) {
+            .about-black-expanded { padding: 100px 20px 250px; }
+            .about-big-text { font-size: 60px; letter-spacing: -1.5px; }
+        }
+        .social-bar-container {
+            width: 100%;
+            padding: 30px 40px 80px;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+        }
+        .social-bar {
+            display: flex;
+            gap: 50px;
+            padding: 30px 50px;
+            background-color: #000000;
+            border: 1.5px solid #555555;
+            border-radius: 30px;
+            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.9);
+            align-items: center;
+        }
+        .social-icon {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            width: 60px;
+            height: 60px;
+            transition: transform 0.6s cubic-bezier(0.25, 0.46, 0.45, 0.94);
+            cursor: pointer;
+            position: relative;
+            z-index: 1;
+        }
+        .social-icon img {
+            width: 36px;
+            height: 36px;
+            object-fit: contain;
+            filter: brightness(1.2);
+            transition: all 0.5s ease;
+        }
+        .social-icon:hover {
+            transform: scale(1.6);
+            z-index: 10;
+        }
+        .social-icon:hover img {
+            filter: brightness(1.5);
+        }
+        /* SIDE MENU */
+        .side-menu {
+            position: fixed;
+            top: 0;
+            right: -400px;
+            width: 400px;
+            height: 100vh;
+            background-color: #000000;
+            z-index: 9998;
+            transition: right 0.6s cubic-bezier(0.25, 0.46, 0.45, 0.94);
+            display: flex;
+            align-items: flex-start;
+            justify-content: flex-start;
+            padding-top: 120px;
+            padding-left: 50px;
+            box-sizing: border-box;
+            box-shadow: -10px 0 30px rgba(0,0,0,0.5);
+        }
+        .side-menu.open {
+            right: 0;
+        }
+        .menu-buttons {
+            display: flex;
+            flex-direction: column;
+            gap: 15px;
+            width: auto;
+        }
+        .menu-btn {
+            background: transparent;
+            border: none;
+            color: #ffffff;
+            font-size: 25px;
+            font-weight: 800;
+            letter-spacing: -0.5px;
+            padding: 16px 0;
+            text-align: left;
+            width: auto;
+            display: flex;
+            align-items: center;
+            gap: 15px;
+            transition: none;
+            opacity: 0.9;
+            text-decoration: none !important;
+            outline: none !important;
+            box-shadow: none !important;
+            -webkit-tap-highlight-color: transparent;
+        }
+        .menu-btn:hover {
+            color: #ffffff;
+            opacity: 1;
+            text-decoration: none !important;
+        }
+        .menu-btn:focus,
+        .menu-btn:active {
+            outline: none !important;
+            box-shadow: none !important;
+            background: transparent !important;
+            color: #ffffff !important;
+            text-decoration: none !important;
+        }
+        .menu-icon {
+            width: 28px;
+            height: 28px;
+            object-fit: contain;
+            flex-shrink: 0;
+            opacity: 0.9;
+        }
+        .menu-overlay {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100vw;
+            height: 100vh;
+            background: rgba(0, 0, 0, 0.3);
+            opacity: 0;
+            visibility: hidden;
+            transition: opacity 0.4s ease, visibility 0.4s ease;
+            z-index: 9997;
+            backdrop-filter: blur(8px) brightness(0.8);
+            -webkit-backdrop-filter: blur(8px) brightness(0.8);
+            pointer-events: none;
+        }
+        .menu-overlay.active {
+            opacity: 1;
+            visibility: visible;
+            pointer-events: auto;
+        }
+        /* LOGIN POPUP STYLES */
+        .login-overlay {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100vw;
+            height: 100vh;
+            background: rgba(0, 0, 0, 0.6);
+            backdrop-filter: blur(10px) brightness(0.6);
+            -webkit-backdrop-filter: blur(10px) brightness(0.6);
+            opacity: 0;
+            visibility: hidden;
+            transition: all 0.4s ease;
+            z-index: 9998;
+        }
+        .login-overlay.active {
+            opacity: 1;
+            visibility: visible;
+        }
+        .login-popup {
+            position: fixed;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%) scale(0.8);
+            width: 90%;
+            max-width: 420px;
+            background: #ffffff;
+            border-radius: 20px;
+            box-shadow: 0 20px 50px rgba(0,0,0,0.3);
+            z-index: 9999;
+            opacity: 0;
+            visibility: hidden;
+            transition: all 0.5s cubic-bezier(0.25, 0.46, 0.45, 0.94);
+            padding: 40px 30px;
+            text-align: center;
+        }
+        .login-popup.active {
+            opacity: 1;
+            visibility: visible;
+            transform: translate(-50%, -50%) scale(1);
+        }
+        .login-content h2 {
+            font-size: 36px;
+            font-weight: 900;
+            color: #000000;
+            margin: 0 0 10px 0;
+        }
+        .login-content p {
+            color: #333333;
+            margin-bottom: 30px;
+            font-size: 16px;
+        }
+        .login-content input {
+            width: 100%;
+            padding: 16px 20px;
+            margin: 12px 0;
+            border: 2px solid #dddddd;
+            border-radius: 12px;
+            font-size: 16px;
+            transition: all 0.3s ease;
+        }
+        .login-content input:focus {
+            outline: none;
+            border-color: #000000;
+            box-shadow: 0 0 0 4px rgba(0,0,0,0.1);
+        }
+        .otp-section {
+            display: flex;
+            gap: 10px;
+            align-items: center;
+            margin: 12px 0;
+        }
+        #otpInput {
+            flex: 1;
+        }
+        #resendOtp {
+            background: transparent;
+            border: none;
+            color: #0066ff;
+            font-size: 14px;
+            cursor: pointer;
+        }
+        .login-content button[type="button"],
+        .login-content button[type="submit"] {
+            width: 100%;
+            padding: 16px;
+            margin-top: 20px;
+            background: #000000;
+            color: #ffffff;
+            border: none;
+            border-radius: 12px;
+            font-size: 18px;
+            font-weight: 700;
+            cursor: pointer;
+            transition: all 0.4s ease;
+        }
+        .login-content button[type="button"]:hover,
+        .login-content button[type="submit"]:hover {
+            background: #111111;
+            transform: translateY(-3px);
+        }
+        .close-popup {
+            position: absolute;
+            top: 15px;
+            right: 20px;
+            background: none;
+            border: none;
+            font-size: 36px;
+            color: #999999;
+            cursor: pointer;
+            width: 40px;
+            height: 40px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+        .close-popup:hover {
+            color: #000000;
+        }
+        /* Responsive adjustments already included above */
+    </style>
+</head>
+<body>
+    <header>
+        <div class="logo">Nilu's World</div>
+        <button class="private-btn">Go Private</button>
+    </header>
+    <section class="hero">
+        <div class="hero-content">
+            <div class="step-in">Step in</div>
+            <h1>Unlock Your Trading Potential</h1>
+            <p class="hero-desc">
+                Where advanced autopilot systems sync you with real-time markets and pro traders.
+            </p>
+        </div>
+        <img
+            src="https://i.postimg.cc/d38mGr5R/Untitled-Project-2-removebg.png"
+            alt="Trading dashboard on MacBook Pro with real-time charts"
+            class="macbook-img"
+            loading="lazy"
+        >
+    </section>
+    <!-- Black Section -->
+    <section class="black-section">
+        <div class="black-content">
+            <!-- Forex/Crypto Tabs -->
+            <div class="black-buttons">
+                <button class="tab-btn active" id="forex-tab">Forex</button>
+                <button class="tab-btn" id="crypto-tab">Crypto</button>
+            </div>
+          
+            <!-- Market Pairs Container -->
+            <div class="market-container">
+                <!-- FOREX LEFT - XAUUSD -->
+                <div class="market-box forex-left">
+                    <div style="margin: 20px 0; text-align: center;">
+                        <div style="display: flex; align-items: center; justify-content: flex-start; gap: 16px; margin-bottom: 15px;">
+                            <img src="https://image2url.com/r2/bucket2/images/1766844784088-1c7a1456-d58c-4b26-9be0-1b5604f9e5b4.jpg" alt="XAUUSD Gold Logo" style="width: 60px; height: 60px; border-radius: 50px; border: 2px solid #333333; box-shadow: 0 4px 15px rgba(0,0,0,0.5);">
+                            <h2 style="color: #ffffff; font-size: 36px; font-weight: 800; margin: 0; letter-spacing: -0.5px;">XAUUSD</h2>
+                        </div>
+                        <div class="tradingview-widget-container" style="position: relative; margin: 20px 0;">
+                            <div style="position: absolute; top: 0; left: 0; width: 100%; height: 80px; background-color: #000000; z-index: 999;"></div>
+                            <div style="position: absolute; top: 8px; right: 8px; width: 60px; height: 50px; background-color: #000000; z-index: 999;"></div>
+                            <div class="tradingview-widget-container__widget"></div>
+                            <div class="tv-cursor-overlay"></div>
+                            <script type="text/javascript" src="https://s3.tradingview.com/external-embedding/embed-widget-mini-symbol-overview.js" async>
+                            {
+                                "symbol": "OANDA:XAUUSD",
+                                "width": "100%",
+                                "height": "320",
+                                "locale": "en",
+                                "dateRange": "12M",
+                                "colorTheme": "dark",
+                                "trendLineColor": "#00ff9d",
+                                "underLineColor": "rgba(0, 255, 157, 0.3)",
+                                "underLineBottomColor": "rgba(0, 0, 0, 0)",
+                                "isTransparent": true,
+                                "autosize": false,
+                                "largeChartUrl": "",
+                                "noTimeScale": true,
+                                "chartOnly": false
+                            }
+                            </script>
+                        </div>
+                    </div>
+                    <hr class="pair-divider">
+                    <div class="pair lower-pair">
+                        <div class="lower-left">
+                            <img src="https://image2url.com/r2/bucket2/images/1766844817492-7d0cf324-a384-4347-84f6-b91eeb2f1f57.jpg" alt="EURUSD Logo" class="pair-logo">
+                            <div class="pair-name">EURUSD</div>
+                        </div>
+                        <div class="pair-price" data-pair="EURUSD">1.0825</div>
+                    </div>
+                    <hr class="pair-divider">
+                    <div class="pair lower-pair">
+                        <div class="lower-left">
+                            <img src="https://image2url.com/r2/bucket2/images/1766844839975-c341adfc-0dc1-454d-a34f-6b58c6423f09.jpg" alt="GBPUSD Logo" class="pair-logo">
+                            <div class="pair-name">GBPUSD</div>
+                        </div>
+                        <div class="pair-price" data-pair="GBPUSD">1.3005</div>
+                    </div>
+                    <hr class="pair-divider">
+                    <div class="pair lower-pair">
+                        <div class="lower-left">
+                            <img src="https://image2url.com/r2/bucket2/images/1766842311188-16cfe045-dbf9-46c7-bccd-e9aeb7a4e059.jpg" alt="AUDUSD Logo" class="pair-logo">
+                            <div class="pair-name">AUDUSD</div>
+                        </div>
+                        <div class="pair-price" data-pair="AUDUSD">0.6620</div>
+                    </div>
+                    <hr class="pair-divider">
+                    <div class="pair lower-pair">
+                        <div class="lower-left">
+                            <img src="https://image2url.com/r2/bucket2/images/1766842311188-16cfe045-dbf9-46c7-bccd-e9aeb7a4e059.jpg" alt="NZDUSD Logo" class="pair-logo">
+                            <div class="pair-name">NZDUSD</div>
+                        </div>
+                        <div class="pair-price" data-pair="NZDUSD">0.6025</div>
+                    </div>
+                </div>
+                <!-- FOREX RIGHT - XAGUSD -->
+                <div class="market-box forex-right">
+                    <div style="margin: 20px 0; text-align: center;">
+                        <div style="display: flex; align-items: center; justify-content: flex-start; gap: 16px; margin-bottom: 15px;">
+                            <img src="https://image2url.com/r2/bucket2/images/1766844470430-df886d98-8637-412e-a9ea-607367a0c8c0.jpg" alt="XAGUSD Silver Logo" style="width: 60px; height: 60px; border-radius: 50%; border: none; box-shadow: 0 4px 15px rgba(0,0,0,0.5);">
+                            <h2 style="color: #ffffff; font-size: 36px; font-weight: 800; margin: 0; letter-spacing: -0.5px;">XAGUSD</h2>
+                        </div>
+                        <div class="tradingview-widget-container" style="position: relative; margin: 20px 0;">
+                            <div style="position: absolute; top: 0; left: 0; width: 100%; height: 80px; background-color: #000000; z-index: 999;"></div>
+                            <div style="position: absolute; top: 8px; right: 8px; width: 60px; height: 50px; background-color: #000000; z-index: 999;"></div>
+                            <div class="tradingview-widget-container__widget"></div>
+                            <div class="tv-cursor-overlay"></div>
+                            <script type="text/javascript" src="https://s3.tradingview.com/external-embedding/embed-widget-mini-symbol-overview.js" async>
+                            {
+                                "symbol": "OANDA:XAGUSD",
+                                "width": "100%",
+                                "height": "320",
+                                "locale": "en",
+                                "dateRange": "12M",
+                                "colorTheme": "dark",
+                                "trendLineColor": "#00ff9d",
+                                "underLineColor": "rgba(0, 255, 157, 0.3)",
+                                "underLineBottomColor": "rgba(0, 0, 0, 0)",
+                                "isTransparent": true,
+                                "autosize": false,
+                                "largeChartUrl": "",
+                                "noTimeScale": true,
+                                "chartOnly": false
+                            }
+                            </script>
+                        </div>
+                    </div>
+                    <hr class="pair-divider">
+                    <div class="pair lower-pair">
+                        <div class="lower-left">
+                            <img src="https://image2url.com/r2/bucket2/images/1766844571175-7ccb47d9-cc2a-4f07-b8bc-3b10ca844313.jpg" alt="USDJPY Logo" class="pair-logo">
+                            <div class="pair-name">USDJPY</div>
+                        </div>
+                        <div class="pair-price" data-pair="USDJPY">151.20</div>
+                    </div>
+                    <hr class="pair-divider">
+                    <div class="pair lower-pair">
+                        <div class="lower-left">
+                            <img src="https://image2url.com/r2/bucket2/images/1766844633849-738eae24-0f11-403a-abc2-cdb8e0ccb17e.jpg" alt="USDCHF Logo" class="pair-logo">
+                            <div class="pair-name">USDCHF</div>
+                        </div>
+                        <div class="pair-price" data-pair="USDCHF">0.8705</div>
+                    </div>
+                    <hr class="pair-divider">
+                    <div class="pair lower-pair">
+                        <div class="lower-left">
+                            <img src="https://image2url.com/r2/bucket2/images/1766844664989-e9bf7c3c-cd33-40ba-be11-d63cdc648299.jpg" alt="USDCAD Logo" class="pair-logo">
+                            <div class="pair-name">USDCAD</div>
+                        </div>
+                        <div class="pair-price" data-pair="USDCAD">1.3820</div>
+                    </div>
+                    <hr class="pair-divider">
+                    <div class="pair lower-pair">
+                        <div class="lower-left">
+                            <img src="https://image2url.com/r2/bucket2/images/1766844694694-06d9da16-f28b-4d80-820c-9417af929c35.jpg" alt="EURGBP Logo" class="pair-logo">
+                            <div class="pair-name">EURGBP</div>
+                        </div>
+                        <div class="pair-price" data-pair="EURGBP">0.8315</div>
+                    </div>
+                </div>
+                <!-- CRYPTO LEFT - BTCUSDT -->
+                <div class="market-box crypto-left">
+                    <div style="margin: 20px 0; text-align: center;">
+                        <div style="display: flex; align-items: center; justify-content: flex-start; gap: 16px; margin-bottom: 15px;">
+                            <img src="https://image2url.com/r2/bucket3/images/1766852189787-560464eb-102d-4fe3-9def-9d464aaf1d7f.jpeg" alt="BTCUSDT Bitcoin Logo" style="width: 60px; height: 60px; border-radius: 50%; border: none; box-shadow: 0 4px 15px rgba(0,0,0,0.5);">
+                            <h2 style="color: #ffffff; font-size: 36px; font-weight: 800; margin: 0; letter-spacing: -0.5px;">BTCUSDT</h2>
+                        </div>
+                        <div class="tradingview-widget-container" style="position: relative; margin: 20px 0;">
+                            <div style="position: absolute; top: 0; left: 0; width: 100%; height: 80px; background-color: #000000; z-index: 999;"></div>
+                            <div style="position: absolute; top: 8px; right: 8px; width: 60px; height: 50px; background-color: #000000; z-index: 999;"></div>
+                            <div class="tradingview-widget-container__widget"></div>
+                            <div class="tv-cursor-overlay"></div>
+                            <script type="text/javascript" src="https://s3.tradingview.com/external-embedding/embed-widget-mini-symbol-overview.js" async>
+                            {
+                                "symbol": "BINANCE:BTCUSDT",
+                                "width": "100%",
+                                "height": "320",
+                                "locale": "en",
+                                "dateRange": "12M",
+                                "colorTheme": "dark",
+                                "trendLineColor": "#00ff9d",
+                                "underLineColor": "rgba(0, 255, 157, 0.3)",
+                                "underLineBottomColor": "rgba(0, 0, 0, 0)",
+                                "isTransparent": true,
+                                "autosize": false,
+                                "largeChartUrl": "",
+                                "noTimeScale": true,
+                                "chartOnly": false
+                            }
+                            </script>
+                        </div>
+                    </div>
+                    <hr class="pair-divider">
+                    <div class="pair lower-pair">
+                        <div class="lower-left">
+                            <img src="https://image2url.com/r2/bucket3/images/1766852234522-5b2a5fff-fff7-4db5-ac65-10782f4d1338.jpeg" alt="BNBUSDT Logo" class="pair-logo">
+                            <div class="pair-name">BNBUSDT</div>
+                        </div>
+                        <div class="pair-price" data-pair="BNBUSDT">840.75</div>
+                    </div>
+                    <hr class="pair-divider">
+                    <div class="pair lower-pair">
+                        <div class="lower-left">
+                            <img src="https://image2url.com/r2/bucket3/images/1766852257936-54c253fa-ad78-403b-9448-46c14f7ed858.jpeg" alt="SOLUSDT Logo" class="pair-logo">
+                            <div class="pair-name">SOLUSDT</div>
+                        </div>
+                        <div class="pair-price" data-pair="SOLUSDT">123.44</div>
+                    </div>
+                    <hr class="pair-divider">
+                    <div class="pair lower-pair">
+                        <div class="lower-left">
+                            <img src="https://image2url.com/r2/bucket3/images/1766852292683-9989730d-0aa0-479c-aca6-a0de8f9cccfb.jpg" alt="XRPUSDT Logo" class="pair-logo">
+                            <div class="pair-name">XRPUSDT</div>
+                        </div>
+                        <div class="pair-price" data-pair="XRPUSDT">1.85</div>
+                    </div>
+                    <hr class="pair-divider">
+                    <div class="pair lower-pair">
+                        <div class="lower-left">
+                            <img src="https://image2url.com/r2/bucket3/images/1766852317427-cc47d07d-6bff-432b-8dd4-8dede364b08f.jpg" alt="ADAUSDT Logo" class="pair-logo">
+                            <div class="pair-name">ADAUSDT</div>
+                        </div>
+                        <div class="pair-price" data-pair="ADAUSDT">0.3563</div>
+                    </div>
+                </div>
+                <!-- CRYPTO RIGHT - ETHUSDT -->
+                <div class="market-box crypto-right">
+                    <div style="margin: 20px 0; text-align: center;">
+                        <div style="display: flex; align-items: center; justify-content: flex-start; gap: 16px; margin-bottom: 15px;">
+                            <img src="https://image2url.com/r2/bucket2/images/1766850097124-fccf7fe2-65c1-4af1-a8a9-883a487ff792.jpeg" alt="ETHUSDT Ethereum Logo" style="width: 60px; height: 60px; border-radius: 50%; border: none; box-shadow: 0 4px 15px rgba(0,0,0,0.5);">
+                            <h2 style="color: #ffffff; font-size: 36px; font-weight: 800; margin: 0; letter-spacing: -0.5px;">ETHUSDT</h2>
+                        </div>
+                        <div class="tradingview-widget-container" style="position: relative; margin: 20px 0;">
+                            <div style="position: absolute; top: 0; left: 0; width: 100%; height: 80px; background-color: #000000; z-index: 999;"></div>
+                            <div style="position: absolute; top: 8px; right: 8px; width: 60px; height: 50px; background-color: #000000; z-index: 999;"></div>
+                            <div class="tradingview-widget-container__widget"></div>
+                            <div class="tv-cursor-overlay"></div>
+                            <script type="text/javascript" src="https://s3.tradingview.com/external-embedding/embed-widget-mini-symbol-overview.js" async>
+                            {
+                                "symbol": "BINANCE:ETHUSDT",
+                                "width": "100%",
+                                "height": "320",
+                                "locale": "en",
+                                "dateRange": "12M",
+                                "colorTheme": "dark",
+                                "trendLineColor": "#00ff9d",
+                                "underLineColor": "rgba(0, 255, 157, 0.3)",
+                                "underLineBottomColor": "rgba(0, 0, 0, 0)",
+                                "isTransparent": true,
+                                "autosize": false,
+                                "largeChartUrl": "",
+                                "noTimeScale": true,
+                                "chartOnly": false
+                            }
+                            </script>
+                        </div>
+                    </div>
+                    <hr class="pair-divider">
+                    <div class="pair lower-pair">
+                        <div class="lower-left">
+                            <img src="https://image2url.com/r2/bucket3/images/1766852317427-cc47d07d-6bff-432b-8dd4-8dede364b08f.jpg" alt="DOGEUSDT Logo" class="pair-logo">
+                            <div class="pair-name">DOGEUSDT</div>
+                        </div>
+                        <div class="pair-price" data-pair="DOGEUSDT">0.1229</div>
+                    </div>
+                    <hr class="pair-divider">
+                    <div class="pair lower-pair">
+                        <div class="lower-left">
+                            <img src="https://image2url.com/r2/bucket3/images/1766852339526-2833d876-fb14-4895-ac16-f3461996ba56.jpg" alt="DOTUSDT Logo" class="pair-logo">
+                            <div class="pair-name">DOTUSDT</div>
+                        </div>
+                        <div class="pair-price" data-pair="DOTUSDT">1.79</div>
+                    </div>
+                    <hr class="pair-divider">
+                    <div class="pair lower-pair">
+                        <div class="lower-left">
+                            <img src="https://image2url.com/r2/bucket3/images/1766852364415-0b2ce181-e9fa-401b-846f-97d28bce67cc.jpeg" alt="TRXUSDT Logo" class="pair-logo">
+                            <div class="pair-name">TRXUSDT</div>
+                        </div>
+                        <div class="pair-price" data-pair="TRXUSDT">0.2799</div>
+                    </div>
+                    <hr class="pair-divider">
+                    <div class="pair lower-pair">
+                        <div class="lower-left">
+                            <img src="https://image2url.com/r2/bucket3/images/1766852396410-9ca0e7a3-8f21-4507-baca-a88cee12c88a.jpeg" alt="MATICUSDT Logo" class="pair-logo">
+                            <div class="pair-name">MATICUSDT</div>
+                        </div>
+                        <div class="pair-price" data-pair="MATICUSDT">0.1049</div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+    <!-- Arbitrage Section with Interactive Particles Background -->
+    <section class="arbitrage-section">
+        <div class="particles-container">
+            <div id="arbitrage-particles"></div>
+        </div>
+        <div class="arbitrage-content">
+            <div class="arbitrage-text">
+                <h2 class="arbitrage-title">ARBITRAGE</h2>
+                <p class="arbitrage-subtitle">While markets move at lightning speed, our algorithms move faster.</p>
+                <p class="arbitrage-desc">The robot monitors cross-exchange price differences and executes precision trades — no emotion, only logic.</p>
+            </div>
+            <img
+                src="https://image2url.com/r2/bucket3/images/1766914158318-de05b2c2-265c-4c04-b063-d50280648994.png"
+                alt="Arbitrage Robot Image"
+                class="footer-img"
+                loading="lazy"
+            >
+        </div>
+    </section>
+    <!-- Upcoming Technology Section - 3 Blocks -->
+    <section class="upcoming-tech-section">
+        <div class="upcoming-tech-content">
+            <h2 class="upcoming-tech-title">Upcoming Technology</h2>
+            <div class="tech-pair-wrapper">
+                <img src="https://image2url.com/r2/default/images/1766925881092-15f3c47e-ec61-40c9-a863-b473d9c79cc5.png" alt="Blockchain Technology" class="tech-pair-image" loading="lazy">
+                <div class="tech-pair-text">
+                    <h3 class="tech-pair-heading">Blockchain</h3>
+                    <p class="tech-pair-desc">
+                        Blockchain technology is considered non-hackable because data is stored inside connected blocks instead of a single server.<br><br>
+                        Each block is protected using advanced SHA-256 encryption, which makes altering or breaking the data extremely difficult.<br><br>
+                        Since the system is decentralized, no single authority controls it, making the network secure and transparent.
+                    </p>
+                </div>
+            </div>
+            <div class="tech-pair-wrapper reverse">
+                <div class="tech-pair-text">
+                    <h3 class="tech-pair-heading">Metaverse</h3>
+                    <p class="tech-pair-desc">
+                        The metaverse is a powerful technology that allows people to experience the world digitally while sitting at home.<br><br>
+                        Using VR or AR glasses, users can travel virtually, attend classes, teach others, play sports, or participate in activities in real time.<br><br>
+                        It turns physical limitations into immersive digital experiences.
+                    </p>
+                </div>
+                <img src="https://image2url.com/r2/default/images/1766926056190-8449d8d2-9415-4d75-b2a4-5837fc4a5e9b.png" alt="Metaverse" class="tech-pair-image" loading="lazy">
+            </div>
+            <div class="tech-pair-wrapper">
+                <img src="https://image2url.com/r2/default/images/1766926161879-d69cdbc3-0eeb-4c35-9ad7-3e317c0c5976.png" alt="Web3" class="tech-pair-image" loading="lazy">
+                <div class="tech-pair-text">
+                    <h3 class="tech-pair-heading">Web3</h3>
+                    <p class="tech-pair-desc">
+                        Web3 is the decentralized version of the internet where websites and applications are not controlled by a single company.<br><br>
+                        Users can access platforms directly through wallets, keeping their data, identity, and assets under their own control.<br><br>
+                        This creates a more open, secure, and user-driven web experience.
+                    </p>
+                </div>
+            </div>
+            <div class="about-black-expanded">
+                <h2 class="about-big-text">About</h2>
+                <div class="social-bar-container">
+                    <div class="social-bar">
+                        <a href="javascript:scrollToTop()" class="social-icon home-icon" aria-label="Home">
+                            <img src="https://image2url.com/r2/default/images/1767158026214-5613a318-8c7a-44e0-a341-21ecd0d3b509.jpeg" alt="Home">
+                        </a>
+                        <a href="https://wa.me/919978313534" target="_blank" class="social-icon whatsapp-icon" aria-label="WhatsApp">
+                            <img src="https://image2url.com/r2/default/images/1767158134182-dcb17959-6b04-4bec-af9e-71c4808566d9.jpeg" alt="WhatsApp">
+                        </a>
+                        <a href="https://t.me/+919978313534" target="_blank" class="social-icon telegram-icon" aria-label="Telegram">
+                            <img src="https://image2url.com/r2/default/images/1767158162859-9d53b967-452d-47de-a813-17d957557bef.jpeg" alt="Telegram">
+                        </a>
+                        <a href="https://www.linkedin.com/in/nilkanth-devani-b7755a254/" target="_blank" class="social-icon linkedin-icon" aria-label="LinkedIn">
+                            <img src="https://image2url.com/r2/default/images/1767158182057-5cc3d79d-6843-485b-9ad3-a5328586eeeb.jpeg" alt="LinkedIn">
+                        </a>
+                        <a href="https://www.instagram.com/nilkanth_devani007/" target="_blank" class="social-icon instagram-icon" aria-label="Instagram">
+                            <img src="https://image2url.com/r2/default/images/1767158199707-6c9aca7d-449d-4c70-bbd0-3eba5983ba00.jpeg" alt="Instagram">
+                        </a>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+    <!-- Login Popup Overlay -->
+    <div class="login-overlay" id="loginOverlay"></div>
+    <!-- Login Popup -->
+    <div class="login-popup" id="loginPopup">
+        <div class="login-content">
+            <h2>Login</h2>
+            <p>Enter your details to access more features</p>
+          
+            <form id="loginForm">
+                <input type="text" placeholder="Name" required>
+                <input type="text" placeholder="Surname" required>
+                <input type="tel" id="phoneInput" placeholder="Phone Number" required>
+              
+                <div class="otp-section" id="otpSection" style="display: none;">
+                    <input type="text" id="otpInput" placeholder="Enter OTP" maxlength="6">
+                    <button type="button" id="resendOtp">Resend OTP</button>
+                </div>
+              
+                <button type="button" id="sendOtpBtn">Continue</button>
+                <button type="submit" id="loginBtn" style="display: none;">Login</button>
+            </form>
+          
+            <button class="close-popup" id="closePopup">×</button>
+        </div>
+    </div>
+    <!-- Custom Cursor Ring -->
+    <div id="cursor"></div>
+    <!-- Right Side Menu with Links -->
+    <div class="side-menu" id="sideMenu">
+        <div class="menu-buttons">
+            <button class="menu-btn" onclick="scrollToTop()">
+                <img src="https://image2url.com/r2/default/images/1767159798041-109e2c20-29f6-4fcd-9aa4-aec682eba512.jpeg" alt="Home Icon" class="menu-icon">
+                Home
+            </button>
+            <a href="copytrades.html" class="menu-btn">
+                <img src="https://image2url.com/r2/default/images/1767160211887-13ca76fc-7ff6-41a0-85c4-a956dbc53091.png" alt="Copy Trades Icon" class="menu-icon">
+                Copy Trades
+            </a>
+            <a href="appointment.html" class="menu-btn">
+                <img src="https://image2url.com/r2/default/images/1767159852435-ef33c360-56fa-4af2-a36d-ec906636d764.png" alt="Appointment Icon" class="menu-icon">
+                Appointment
+            </a>
+            <a href="chat.html" class="menu-btn">
+                <img src="https://image2url.com/r2/default/images/1767160432190-189f7994-7a76-4342-9d37-4aec011b38c0.png" alt="Chat Icon" class="menu-icon">
+                Chat
+            </a>
+        </div>
+    </div>
+    <!-- Overlay to close menu -->
+    <div class="menu-overlay" id="menuOverlay"></div>
+    <script>
+        // ──────────────────────────────────────────────
+        // ALL JAVASCRIPT COMBINED
+        // ──────────────────────────────────────────────
+        document.addEventListener('DOMContentLoaded', function() {
+            const cursor = document.getElementById('cursor');
+            const darkSections = document.querySelectorAll('.black-section, .upcoming-tech-section');
+            function updateCursorColor() {
+                const cursorRect = cursor.getBoundingClientRect();
+                let isOverDark = false;
+                for (let section of darkSections) {
+                    const rect = section.getBoundingClientRect();
+                    if (cursorRect.top >= rect.top && cursorRect.bottom <= rect.bottom &&
+                        cursorRect.left >= rect.left && cursorRect.right <= rect.right) {
+                        isOverDark = true;
+                        break;
+                    }
+                }
+                if (!isOverDark) {
+                    const menuArea = document.querySelector('.side-menu');
+                    if (menuArea) {
+                        const menuRect = menuArea.getBoundingClientRect();
+                        if (cursorRect.top >= menuRect.top && cursorRect.bottom <= menuRect.bottom &&
+                            cursorRect.left >= menuRect.left && cursorRect.right <= menuRect.right) {
+                            isOverDark = true;
+                        }
+                    }
+                }
+                cursor.style.borderColor = isOverDark ? '#ffffff' : '#000000';
+            }
+            document.addEventListener('mousemove', (e) => {
+                cursor.style.left = e.clientX + 'px';
+                cursor.style.top = e.clientY + 'px';
+                updateCursorColor();
+            });
+            window.addEventListener('scroll', updateCursorColor);
+            updateCursorColor();
+            document.addEventListener('mouseenter', () => {
+                cursor.style.opacity = '1';
+            });
+            document.addEventListener('mouseleave', () => {
+                cursor.style.opacity = '0';
+            });
+            const hoverables = document.querySelectorAll('button, .step-in, .tab-btn, .menu-btn');
+            hoverables.forEach(el => {
+                el.addEventListener('mouseenter', () => {
+                    cursor.classList.add('hover');
+                });
+                el.addEventListener('mouseleave', () => {
+                    cursor.classList.remove('hover');
+                });
+            });
+            // Forex/Crypto Tabs
+            const forexTab = document.getElementById('forex-tab');
+            const cryptoTab = document.getElementById('crypto-tab');
+            if (forexTab && cryptoTab) {
+                forexTab.addEventListener('click', (e) => {
+                    e.preventDefault();
+                    forexTab.classList.add('active');
+                    cryptoTab.classList.remove('active');
+                    document.body.classList.remove('crypto-active');
+                    document.querySelector('.market-container').style.opacity = '0.5';
+                    setTimeout(() => {
+                        document.querySelector('.market-container').style.opacity = '1';
+                    }, 200);
+                });
+                cryptoTab.addEventListener('click', (e) => {
+                    e.preventDefault();
+                    cryptoTab.classList.add('active');
+                    forexTab.classList.remove('active');
+                    document.body.classList.add('crypto-active');
+                    document.querySelector('.market-container').style.opacity = '0.5';
+                    setTimeout(() => {
+                        document.querySelector('.market-container').style.opacity = '1';
+                    }, 200);
+                });
+            }
+            // Fake Price Animations
+            function animatePrices() {
+                const prices = document.querySelectorAll('.pair-price[data-pair]');
+                prices.forEach(priceEl => {
+                    const current = parseFloat(priceEl.textContent.replace(/[,$]/g, ''));
+                    const change = (Math.random() - 0.5) * 0.1;
+                    const newPrice = current + change;
+                    priceEl.style.transform = 'scale(1.05)';
+                    setTimeout(() => {
+                        priceEl.textContent = newPrice.toFixed(current % 1 === 0 ? 2 : 4);
+                        priceEl.style.transform = 'scale(1)';
+                    }, 150);
+                });
+            }
+            setInterval(animatePrices, 3000);
+            // Mobile hide cursor
+            function checkMobile() {
+                if (window.innerWidth <= 768) {
+                    cursor.style.display = 'none';
+                } else {
+                    cursor.style.display = 'block';
+                }
+            }
+            checkMobile();
+            window.addEventListener('resize', checkMobile);
+            // Scroll animations
+            const observerOptions = {
+                threshold: 0.1,
+                rootMargin: '0px 0px -50px 0px'
+            };
+            const observer = new IntersectionObserver((entries) => {
+                entries.forEach(entry => {
+                    if (entry.isIntersecting) {
+                        entry.target.style.opacity = '1';
+                        entry.target.style.transform = 'translateY(0)';
+                    }
+                });
+            }, observerOptions);
+            document.querySelectorAll('.market-box, .arbitrage-section, .upcoming-tech-section').forEach(el => {
+                el.style.opacity = '0';
+                el.style.transform = 'translateY(30px)';
+                el.style.transition = 'all 0.8s cubic-bezier(0.25, 0.46, 0.45, 0.94)';
+                observer.observe(el);
+            });
+            // Side Menu Elements
+            const stepInBtn = document.querySelector('.step-in');
+            const sideMenu = document.getElementById('sideMenu');
+            const menuOverlay = document.getElementById('menuOverlay');
+            function toggleMenu(open = null) {
+                const shouldOpen = open !== null ? open : !sideMenu.classList.contains('open');
+                if (shouldOpen) {
+                    sideMenu.classList.add('open');
+                    menuOverlay.classList.add('active');
+                    document.body.style.overflow = 'hidden';
+                } else {
+                    sideMenu.classList.remove('open');
+                    menuOverlay.classList.remove('active');
+                    setTimeout(() => {
+                        document.body.style.overflow = '';
+                    }, 600);
+                }
+            }
+            stepInBtn.addEventListener('click', (e) => {
+                e.stopPropagation();
+                toggleMenu(true);
+            });
+            menuOverlay.addEventListener('click', () => {
+                toggleMenu(false);
+            });
+            const homeMenuBtn = document.querySelector('.menu-btn[onclick="scrollToTop()"]');
+            if (homeMenuBtn) {
+                homeMenuBtn.addEventListener('click', (e) => {
+                    e.preventDefault();
+                    scrollToTop();
+                    setTimeout(() => {
+                        toggleMenu(false);
+                    }, 300);
+                });
+            }
+            document.querySelectorAll('.menu-btn[href]').forEach(link => {
+                link.addEventListener('click', (e) => {
+                    e.preventDefault();
+                    const href = link.getAttribute('href');
+                  
+                    toggleMenu(false);
+                  
+                    setTimeout(() => {
+                        window.location.href = href;
+                    }, 400);
+                });
+            });
+            console.log('Nilu\'s World Premium Dashboard Loaded!');
+        });
+        // Super Smooth & Slow Scroll to Top
+        function scrollToTop() {
+            const duration = 1500;
+            const start = window.pageYOffset;
+            const startTime = performance.now();
+            function ease(t) {
+                return t < 0.5 ? 4 * t * t * t : (t - 1) * (2 * t - 2) * (2 * t - 2) + 1;
+            }
+            function animateScroll(currentTime) {
+                const timeElapsed = currentTime - startTime;
+                const progress = Math.min(timeElapsed / duration, 1);
+                const easedProgress = ease(progress);
+                window.scrollTo(0, start - (start * easedProgress));
+                if (progress < 1) {
+                    requestAnimationFrame(animateScroll);
+                }
+            }
+            requestAnimationFrame(animateScroll);
+        }
+        // Go Private Button - Open Login Popup
+        const privateBtn = document.querySelector('.private-btn');
+        const loginOverlay = document.getElementById('loginOverlay');
+        const loginPopup = document.getElementById('loginPopup');
+        const closePopup = document.getElementById('closePopup');
+        const sendOtpBtn = document.getElementById('sendOtpBtn');
+        const loginBtn = document.getElementById('loginBtn');
+        const otpSection = document.getElementById('otpSection');
+        privateBtn.addEventListener('click', (e) => {
+            e.preventDefault();
+            loginOverlay.classList.add('active');
+            loginPopup.classList.add('active');
+            document.body.style.overflow = 'hidden';
+        });
+        closePopup.addEventListener('click', () => {
+            loginOverlay.classList.remove('active');
+            loginPopup.classList.remove('active');
+            document.body.style.overflow = '';
+        });
+        loginOverlay.addEventListener('click', () => {
+            loginOverlay.classList.remove('active');
+            loginPopup.classList.remove('active');
+            document.body.style.overflow = '';
+        });
+        sendOtpBtn.addEventListener('click', () => {
+            const phone = document.getElementById('phoneInput').value;
+            if (phone.length >= 10) {
+                otpSection.style.display = 'flex';
+                sendOtpBtn.style.display = 'none';
+                loginBtn.style.display = 'block';
+                alert('OTP sent to ' + phone);
+            } else {
+                alert('Please enter valid phone number');
+            }
+        });
+        document.getElementById('loginForm').addEventListener('submit', (e) => {
+            e.preventDefault();
+            alert('Login Successful! Welcome to Private Area');
+            loginOverlay.classList.remove('active');
+            loginPopup.classList.remove('active');
+            document.body.style.overflow = '';
+        });
+        // Particles Config for Arbitrage Section
+        particlesJS("arbitrage-particles", {
+            "particles": {
+                "number": { "value": 100, "density": { "enable": true, "value_area": 800 } },
+                "color": { "value": "#000000" },
+                "shape": { "type": "circle" },
+                "opacity": { "value": 0.4, "random": true },
+                "size": { "value": 3, "random": true },
+                "line_linked": { "enable": false },
+                "move": {
+                    "enable": true,
+                    "speed": 1,
+                    "direction": "none",
+                    "random": true,
+                    "straight": false,
+                    "out_mode": "out"
+                }
+            },
+            "interactivity": {
+                "detect_on": "canvas",
+                "events": {
+                    "onhover": { "enable": true, "mode": "repulse" },
+                    "onclick": { "enable": false },
+                    "resize": true
+                },
+                "modes": {
+                    "repulse": { "distance": 80, "duration": 0.4 }
+                }
+            },
+            "retina_detect": true
+        });
+    </script>
+    <!-- CoinGecko marquee widget (optional - already in original) -->
+    <script src="https://widgets.coingecko.com/coingecko-coin-price-marquee-widget.js"></script>
+</body>
+</html>

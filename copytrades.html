@@ -1,0 +1,708 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Nilu's World</title>
+  <!-- particles.js (optional – only if you actually use it later) -->
+  <script src="https://cdn.jsdelivr.net/npm/particles.js@2.0.0/particles.min.js"></script>
+  <style>
+    /* tumhara pura original CSS yahan same rahega – main copy kar raha hoon */
+    body {
+      margin: 0;
+      padding: 0;
+      background-color: #000000;
+      min-height: 100vh;
+      font-family: Arial, sans-serif;
+      box-sizing: border-box;
+      padding-bottom: 40px;
+      cursor: none;
+    }
+    .top-header {
+      background-color: #ffffff;
+      padding: 25px 20px;
+      box-shadow: 0 4px 10px rgba(0, 0, 0, 0.3);
+      text-align: left;
+      position: relative;
+    }
+    .top-header h1 {
+      color: #000000;
+      font-size: 28px;
+      font-weight: 800;
+      margin: 0;
+      letter-spacing: 0.5px;
+      font-family: 'Segoe UI', -apple-system, BlinkMacSystemFont, 'Roboto', 'Helvetica Neue', Arial, sans-serif;
+      margin-left: 30px;
+    }
+    .main-content {
+      padding-top: 20px;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      gap: 50px;
+    }
+    .toggle-buttons {
+      position: relative;
+      display: flex;
+      background-color: #111111;
+      border-radius: 50px;
+      padding: 8px;
+      width: 440px;
+      border: 2px solid #444444;
+      overflow: hidden;
+    }
+    .slider {
+      position: absolute;
+      top: 8px;
+      left: 8px;
+      width: calc(50% - 16px);
+      height: calc(100% - 16px);
+      background-color: #444444;
+      border-radius: 50px;
+      transition: left 0.4s cubic-bezier(0.4, 0, 0.2, 1);
+      pointer-events: none;
+      z-index: 1;
+    }
+    .toggle-btn {
+      flex: 1;
+      padding: 16px 0;
+      text-align: center;
+      font-size: 20px;
+      font-weight: bold;
+      color: #888888;
+      cursor: pointer;
+      border-radius: 50px;
+      transition: color 0.3s ease;
+      z-index: 2;
+      user-select: none;
+    }
+    .toggle-btn.active {
+      color: #ffffff;
+    }
+    .boxes-container {
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      gap: 50px;
+      width: 100%;
+      opacity: 1;
+      transition: opacity 0.5s ease;
+    }
+    .boxes-container.hidden {
+      opacity: 0;
+      pointer-events: none;
+    }
+    .rectangle {
+      position: relative;
+      width: 1200px;
+      height: 300px;
+      background-color: #000000;
+      border: 2px solid #444444;
+      border-radius: 30px;
+      box-sizing: border-box;
+      padding: 30px;
+    }
+    .divider-line {
+      position: absolute;
+      left: 0;
+      right: 0;
+      top: 70px;
+      height: 1px;
+      background-color: #444444;
+      z-index: 1;
+    }
+    .strategy-text {
+      position: absolute;
+      left: 33px;
+      top: 25px;
+      color: #ffffff;
+      font-size: 23px;
+      font-weight: bold;
+      margin: 0;
+      z-index: 3;
+      max-width: 700px;
+      white-space: nowrap;
+      overflow: hidden;
+      text-overflow: ellipsis;
+    }
+    .profile-img {
+      width: 200px;
+      height: auto;
+      border-radius: 20px;
+      position: absolute;
+      left: 100px;
+      bottom: 10px;
+      object-fit: cover;
+      z-index: 2;
+    }
+    .stats-wrapper {
+      position: absolute;
+      left: 500px;
+      bottom: 40px;
+      display: flex;
+      gap: 100px;
+      z-index: 3;
+    }
+    .stats-column {
+      display: flex;
+      flex-direction: column;
+      gap: 30px;
+    }
+    .stat-block {
+      text-align: center;
+    }
+    .stat-label {
+      color: #ffffff;
+      font-size: 24px;
+      font-weight: bold;
+      margin-bottom: 6px;
+    }
+    .stat-value {
+      font-size: 28px;
+      font-weight: bold;
+      margin: 0;
+    }
+    .win-value { color: #00ff00; }
+    .profit-value { color: #00ff00; }
+    .roi-value { color: #00ff00; }
+    .loss-value { color: #ffffff; }
+    .min-invested-value,
+    .investors-value { color: #ffffff; }
+    .start-button {
+      position: absolute;
+      top: 15px;
+      right: 30px;
+      background-color: #00ff00;
+      color: #000000;
+      font-size: 18px;
+      font-weight: bold;
+      padding: 10px 28px;
+      border-radius: 50px;
+      cursor: pointer;
+      z-index: 3;
+      transition: background-color 0.3s ease;
+      border: none;
+      user-select: none;
+    }
+    .start-button:hover {
+      background-color: #00cc00;
+    }
+    .section-title {
+      color: #ffffff;
+      font-size: 36px;
+      font-weight: 800;
+      margin: 50px 0 50px 0;
+      text-align: center;
+      letter-spacing: 1px;
+      text-shadow: 0 2px 10px rgba(0, 0, 0, 0.5);
+    }
+    .modal {
+      display: none;
+      position: fixed;
+      inset: 0;
+      z-index: 1000;
+      background-color: rgba(0, 0, 0, 0.82);
+      align-items: center;
+      justify-content: center;
+      opacity: 0;
+      transition: opacity 0.4s ease, backdrop-filter 0.5s ease;
+      backdrop-filter: blur(0px);
+    }
+    .modal.show {
+      opacity: 1;
+      backdrop-filter: blur(8px);
+    }
+    .modal-content {
+      background: linear-gradient(135deg, #0f0f0f, #1a1a1a);
+      border: 2px solid #444;
+      border-radius: 16px;
+      width: 90%;
+      max-width: 520px;
+      padding: 45px 30px;
+      text-align: center;
+      box-shadow: 0 20px 50px rgba(0,0,0,0.75);
+      transform: scale(0.75);
+      opacity: 0;
+      transition: all 0.45s cubic-bezier(0.34, 1.56, 0.64, 1);
+    }
+    .modal.show .modal-content {
+      transform: scale(1);
+      opacity: 1;
+    }
+    .modal-content p {
+      color: #f0f0f0;
+      font-size: 21px;
+      font-weight: 500;
+      margin: 0;
+      line-height: 1.45;
+    }
+    .extra-black-space {
+      height: 30px;
+      background: #000000;
+    }
+    .bottom-note {
+      color: #888888;
+      font-size: 15px;
+      font-weight: 400;
+      text-align: center;
+      padding: 20px 20px 80px 20px;
+      width: 100%;
+      margin: 0;
+      line-height: 1.5;
+    }
+    .side-menu {
+      position: fixed;
+      top: 0;
+      right: -400px;
+      width: 400px;
+      height: 100vh;
+      background-color: #000000;
+      z-index: 9998;
+      transition: right 0.6s cubic-bezier(0.25, 0.46, 0.45, 0.94);
+      display: flex;
+      align-items: flex-start;
+      justify-content: flex-start;
+      padding-top: 120px;
+      padding-left: 50px;
+      box-sizing: border-box;
+      box-shadow: -10px 0 30px rgba(0,0,0,0.5);
+    }
+    .side-menu.open {
+      right: 0;
+    }
+    .menu-buttons {
+      display: flex;
+      flex-direction: column;
+      gap: 20px;
+    }
+    .menu-btn {
+      background: transparent;
+      border: none;
+      color: #ffffff;
+      font-size: 24px;
+      font-weight: bold;
+      text-align: left;
+      display: flex;
+      align-items: center;
+      gap: 15px;
+      padding: 12px 0;
+      cursor: pointer;
+      text-decoration: none;
+    }
+    .menu-icon {
+      width: 32px;
+      height: 32px;
+      object-fit: contain;
+    }
+    .menu-overlay {
+      position: fixed;
+      inset: 0;
+      background: rgba(0,0,0,0.4);
+      backdrop-filter: blur(4px);
+      z-index: 9997;
+      opacity: 0;
+      visibility: hidden;
+      transition: opacity 0.4s ease, visibility 0.4s ease;
+    }
+    .menu-overlay.active {
+      opacity: 1;
+      visibility: visible;
+    }
+    .hamburger {
+      position: absolute;
+      right: 25px;
+      top: 50%;
+      transform: translateY(-50%);
+      width: 32px;
+      height: 24px;
+      background: transparent;
+      border: none;
+      cursor: pointer;
+      z-index: 10000;
+      display: flex;
+      flex-direction: column;
+      justify-content: space-between;
+      padding: 0;
+    }
+    .hamburger span {
+      width: 100%;
+      height: 4px;
+      background-color: #000000;
+      border-radius: 3px;
+      transition: all 0.4s ease;
+    }
+    .hamburger.active span:nth-child(1) {
+      transform: rotate(45deg) translate(6px, 6px);
+    }
+    .hamburger.active span:nth-child(2) {
+      opacity: 0;
+    }
+    .hamburger.active span:nth-child(3) {
+      transform: rotate(-45deg) translate(8px, -8px);
+    }
+    .hamburger:hover span {
+      background-color: #333333;
+    }
+    #cursor {
+      position: fixed;
+      top: 0;
+      left: 0;
+      width: 32px;
+      height: 32px;
+      border: 2px solid #ffffff;
+      border-radius: 50%;
+      pointer-events: none;
+      z-index: 99999;
+      background: transparent;
+      transform: translate(-50%, -50%) scale(1);
+      transition: transform 0.6s cubic-bezier(0.25, 0.46, 0.45, 0.94),
+                  border-color 0.4s ease,
+                  border-width 0.4s ease;
+      opacity: 0;
+      visibility: hidden;
+    }
+    #cursor.hover {
+      transform: translate(-50%, -50%) scale(1.8);
+      border-width: 2.5px;
+    }
+    @media (max-width: 1300px) {
+      .rectangle { width: 90%; max-width: 1200px; padding: 20px; }
+      .toggle-buttons { width: 90%; max-width: 440px; }
+      .profile-img { width: 160px; left: 20px; bottom: 10px; }
+      .strategy-text { left: 190px; top: 20px; font-size: 23px; max-width: 60%; }
+      .divider-line { top: 65px; }
+      .stats-wrapper { left: 190px; bottom: 30px; gap: 60px; }
+      .stats-column { gap: 20px; }
+      .stat-label { font-size: 20px; }
+      .stat-value { font-size: 24px; }
+      .start-button { top: 15px; right: 20px; padding: 8px 22px; font-size: 16px; }
+      .section-title { font-size: 28px; margin: 40px 0 40px 0; }
+    }
+    @media (max-width: 768px) {
+      .hamburger { right: 18px; width: 34px; height: 26px; }
+      .hamburger span { height: 3.5px; }
+      .side-menu { width: 80%; right: -80%; padding-top: 100px; padding-left: 30px; }
+      .menu-btn { font-size: 22px; }
+      .bottom-note { font-size: 14px; padding: 15px 15px 120px 15px; }
+    }
+    @media (min-width: 769px) {
+      body, button, .toggle-btn, .start-button, .menu-btn, .hamburger {
+        cursor: none !important;
+      }
+    }
+  </style>
+</head>
+<body>
+
+  <!-- Side Menu – EDITED Home link -->
+  <div class="side-menu" id="sideMenu">
+    <div class="menu-buttons">
+      <!-- Home button – ab index.html pe jayega -->
+      <a href="index.html" class="menu-btn">
+        <img src="https://image2url.com/r2/default/images/1767159798041-109e2c20-29f6-4fcd-9aa4-aec682eba512.jpeg" alt="Home Icon" class="menu-icon">
+        Home
+      </a>
+      <a href="copytrades.html" class="menu-btn">
+        <img src="https://image2url.com/r2/default/images/1767160211887-13ca76fc-7ff6-41a0-85c4-a956dbc53091.png" alt="Copy Trades Icon" class="menu-icon">
+        Copy Trades
+      </a>
+      <a href="appointment.html" class="menu-btn">
+        <img src="https://image2url.com/r2/default/images/1767159852435-ef33c360-56fa-4af2-a36d-ec906636d764.png" alt="Appointment Icon" class="menu-icon">
+        Appointment
+      </a>
+      <a href="chat.html" class="menu-btn">
+        <img src="https://image2url.com/r2/default/images/1767160432190-189f7994-7a76-4342-9d37-4aec011b38c0.png" alt="Chat Icon" class="menu-icon">
+        Chat
+      </a>
+    </div>
+  </div>
+
+  <!-- Overlay -->
+  <div class="menu-overlay" id="menuOverlay"></div>
+
+  <!-- Header -->
+  <header class="top-header">
+    <h1><a href="index.html" style="color: #000000; text-decoration: none;">Nilu's World</a></h1>
+    <button class="hamburger" id="hamburgerBtn" aria-label="Open menu">
+      <span></span>
+      <span></span>
+      <span></span>
+    </button>
+  </header>
+
+  <h2 class="section-title">Copy Trade</h2>
+
+  <!-- Main Content -->
+  <div class="main-content">
+    <div class="toggle-buttons">
+      <div class="slider"></div>
+      <div class="toggle-btn active" onclick="showLeaderboard()">Leaderboard</div>
+      <div class="toggle-btn" onclick="showSubscribed()">Subscribed</div>
+    </div>
+
+    <div class="boxes-container" id="boxesContainer">
+      <!-- Strategy 1 -->
+      <div class="rectangle">
+        <div class="divider-line"></div>
+        <div class="start-button">Start</div>
+        <div class="strategy-text">Nilkanth Weekly XAUUSD Strategy</div>
+        <img src="https://image2url.com/r2/default/images/1767356295174-19a94d06-99e7-4393-b134-885864af2c23.png" alt="Chart 1" class="profile-img">
+       
+        <div class="stats-wrapper">
+          <div class="stats-column">
+            <div class="stat-block">
+              <div class="stat-label">WIN%</div>
+              <div class="stat-value win-value">70</div>
+            </div>
+            <div class="stat-block">
+              <div class="stat-label">ROI%</div>
+              <div class="stat-value roi-value">400</div>
+            </div>
+          </div>
+          <div class="stats-column">
+            <div class="stat-block">
+              <div class="stat-label">Profit</div>
+              <div class="stat-value profit-value">+2000.0</div>
+            </div>
+            <div class="stat-block">
+              <div class="stat-label">Loss</div>
+              <div class="stat-value loss-value">00.0</div>
+            </div>
+          </div>
+          <div class="stats-column">
+            <div class="stat-block">
+              <div class="stat-label">Minimum Invested</div>
+              <div class="stat-value min-invested-value">500</div>
+            </div>
+            <div class="stat-block">
+              <div class="stat-label">Investors</div>
+              <div class="stat-value investors-value">4</div>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <!-- Strategy 2 -->
+      <div class="rectangle">
+        <div class="divider-line"></div>
+        <div class="strategy-text">Prayag Sniper strategy</div>
+        <div class="start-button">Start</div>
+        <img src="https://image2url.com/r2/default/images/1767359999005-b442c45d-0a3d-4563-8ca1-4b8efc511ca4.png" alt="Chart 2" class="profile-img">
+       
+        <div class="stats-wrapper">
+          <div class="stats-column">
+            <div class="stat-block">
+              <div class="stat-label">WIN%</div>
+              <div class="stat-value win-value">40</div>
+            </div>
+            <div class="stat-block">
+              <div class="stat-label">ROI%</div>
+              <div class="stat-value roi-value">500</div>
+            </div>
+          </div>
+          <div class="stats-column">
+            <div class="stat-block">
+              <div class="stat-label">Profit</div>
+              <div class="stat-value profit-value">+1500</div>
+            </div>
+            <div class="stat-block">
+              <div class="stat-label">Loss</div>
+              <div class="stat-value loss-value">00.0</div>
+            </div>
+          </div>
+          <div class="stats-column">
+            <div class="stat-block">
+              <div class="stat-label">Minimum Invested</div>
+              <div class="stat-value min-invested-value">300</div>
+            </div>
+            <div class="stat-block">
+              <div class="stat-label">Investors</div>
+              <div class="stat-value investors-value">6</div>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <!-- Strategy 3 -->
+      <div class="rectangle">
+        <div class="divider-line"></div>
+        <div class="strategy-text">MARTINGLE STRATEGY</div>
+        <div class="start-button">Start</div>
+        <img src="https://image2url.com/r2/default/images/1767360343215-e52d6e0f-ad04-40b1-b637-1a176bb3a690.png" alt="Chart 3" class="profile-img">
+       
+        <div class="stats-wrapper">
+          <div class="stats-column">
+            <div class="stat-block">
+              <div class="stat-label">WIN%</div>
+              <div class="stat-value win-value">50</div>
+            </div>
+            <div class="stat-block">
+              <div class="stat-label">ROI%</div>
+              <div class="stat-value roi-value">150</div>
+            </div>
+          </div>
+          <div class="stats-column">
+            <div class="stat-block">
+              <div class="stat-label">Profit</div>
+              <div class="stat-value profit-value">+7500</div>
+            </div>
+            <div class="stat-block">
+              <div class="stat-label">Loss</div>
+              <div class="stat-value loss-value">00.0</div>
+            </div>
+          </div>
+          <div class="stats-column">
+            <div class="stat-block">
+              <div class="stat-label">Minimum Invested</div>
+              <div class="stat-value min-invested-value">5000</div>
+            </div>
+            <div class="stat-block">
+              <div class="stat-label">Investors</div>
+              <div class="stat-value investors-value">9</div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <div class="extra-black-space"></div>
+
+    <div class="bottom-note">
+      All copy trades execute exclusively on XAUUSD.
+    </div>
+  </div>
+
+  <!-- Maintenance Modal -->
+  <div id="maintenanceModal" class="modal">
+    <div class="modal-content">
+      <p>Copy Trade temporarily paused for maintenance.</p>
+    </div>
+  </div>
+
+  <!-- Custom Cursor Ring -->
+  <div id="cursor"></div>
+
+  <script>
+    // ────────────── Toggle Leaderboard / Subscribed ──────────────
+    const slider = document.querySelector('.slider');
+    const boxesContainer = document.getElementById('boxesContainer');
+
+    function showLeaderboard() {
+      slider.style.left = '8px';
+      document.querySelectorAll('.toggle-btn')[0].classList.add('active');
+      document.querySelectorAll('.toggle-btn')[1].classList.remove('active');
+      boxesContainer.classList.remove('hidden');
+    }
+
+    function showSubscribed() {
+      slider.style.left = 'calc(50% + 8px)';
+      document.querySelectorAll('.toggle-btn')[0].classList.remove('active');
+      document.querySelectorAll('.toggle-btn')[1].classList.add('active');
+      boxesContainer.classList.add('hidden');
+    }
+
+    // ────────────── Maintenance Modal ──────────────
+    const modal = document.getElementById("maintenanceModal");
+    const startButtons = document.querySelectorAll(".start-button");
+
+    startButtons.forEach(button => {
+      button.addEventListener("click", function(e) {
+        e.preventDefault();
+        modal.style.display = "flex";
+        setTimeout(() => modal.classList.add("show"), 10);
+      });
+    });
+
+    modal.addEventListener("click", function(event) {
+      if (event.target === modal) {
+        modal.classList.remove("show");
+        setTimeout(() => modal.style.display = "none", 450);
+      }
+    });
+
+    // ────────────── Side Menu ──────────────
+    const sideMenu = document.getElementById('sideMenu');
+    const menuOverlay = document.getElementById('menuOverlay');
+    const hamburgerBtn = document.getElementById('hamburgerBtn');
+
+    function toggleMenu(open = null) {
+      const shouldOpen = open !== null ? open : !sideMenu.classList.contains('open');
+      
+      if (shouldOpen) {
+        sideMenu.classList.add('open');
+        menuOverlay.classList.add('active');
+        document.body.style.overflow = 'hidden';
+      } else {
+        sideMenu.classList.remove('open');
+        menuOverlay.classList.remove('active');
+        setTimeout(() => document.body.style.overflow = '', 600);
+      }
+    }
+
+    hamburgerBtn.addEventListener('click', () => toggleMenu());
+
+    menuOverlay.addEventListener('click', () => toggleMenu(false));
+
+    // ────────────── Custom Cursor ──────────────
+    document.addEventListener('DOMContentLoaded', () => {
+      const cursor = document.getElementById('cursor');
+      if (!cursor) return;
+
+      const lightAreas = document.querySelectorAll('.top-header');
+
+      function updateCursorColor() {
+        const cursorRect = cursor.getBoundingClientRect();
+        let isOverLight = false;
+
+        for (let area of lightAreas) {
+          const rect = area.getBoundingClientRect();
+          if (cursorRect.top >= rect.top && cursorRect.bottom <= rect.bottom &&
+              cursorRect.left >= rect.left && cursorRect.right <= rect.right) {
+            isOverLight = true;
+            break;
+          }
+        }
+
+        cursor.style.borderColor = isOverLight ? '#000000' : '#ffffff';
+      }
+
+      document.addEventListener('mousemove', e => {
+        cursor.style.left = e.clientX + 'px';
+        cursor.style.top  = e.clientY + 'px';
+        updateCursorColor();
+      });
+
+      window.addEventListener('scroll', updateCursorColor);
+      updateCursorColor();
+
+      document.addEventListener('mouseenter', () => {
+        cursor.style.opacity = '1';
+        cursor.style.visibility = 'visible';
+      });
+      document.addEventListener('mouseleave', () => {
+        cursor.style.opacity = '0';
+      });
+
+      const hoverElements = document.querySelectorAll('.toggle-btn, .start-button, .menu-btn, button, .hamburger');
+      hoverElements.forEach(el => {
+        el.addEventListener('mouseenter', () => cursor.classList.add('hover'));
+        el.addEventListener('mouseleave', () => cursor.classList.remove('hover'));
+      });
+
+      function hideOnMobile() {
+        if (window.innerWidth <= 768) {
+          cursor.style.display = 'none';
+        } else {
+          cursor.style.display = 'block';
+          cursor.style.opacity = '1';
+        }
+      }
+      hideOnMobile();
+      window.addEventListener('resize', hideOnMobile);
+
+      console.log("Page fully loaded – custom cursor & menu ready");
+    });
+  </script>
+
+</body>
+</html>
